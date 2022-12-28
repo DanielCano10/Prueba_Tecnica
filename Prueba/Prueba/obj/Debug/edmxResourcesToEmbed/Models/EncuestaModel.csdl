@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="pruebadbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Campo">
+    <Key>
+      <PropertyRef Name="id_campo" />
+    </Key>
+    <Property Name="id_campo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idEncuesta" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="titulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="requerido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Encuesta" Relationship="Self.fk_encuesta_campo" FromRole="Campo" ToRole="Encuesta" />
+  </EntityType>
+  <EntityType Name="Encuesta">
+    <Key>
+      <PropertyRef Name="id_encuesta" />
+    </Key>
+    <Property Name="id_encuesta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Campo" Relationship="Self.fk_encuesta_campo" FromRole="Encuesta" ToRole="Campo" />
+  </EntityType>
+  <Association Name="fk_encuesta_campo">
+    <End Role="Encuesta" Type="Self.Encuesta" Multiplicity="1" />
+    <End Role="Campo" Type="Self.Campo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Encuesta">
+        <PropertyRef Name="id_encuesta" />
+      </Principal>
+      <Dependent Role="Campo">
+        <PropertyRef Name="idEncuesta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="pruebadbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Campo" EntityType="Self.Campo" />
+    <EntitySet Name="Encuesta" EntityType="Self.Encuesta" />
+    <AssociationSet Name="fk_encuesta_campo" Association="Self.fk_encuesta_campo">
+      <End Role="Encuesta" EntitySet="Encuesta" />
+      <End Role="Campo" EntitySet="Campo" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

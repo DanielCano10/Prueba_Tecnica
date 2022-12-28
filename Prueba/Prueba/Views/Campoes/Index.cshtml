@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Prueba.Models.Campo>
+
+@{
+    ViewBag.Title = "Campos";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Crear un campo nuevo", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.titulo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.requerido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Encuesta.descripcion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.titulo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.requerido)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tipo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Encuesta.descripcion)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.id_campo }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.id_campo }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.id_campo })
+        </td>
+    </tr>
+}
+
+</table>
